@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdk rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.benhurqs.uoltest"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // Public Library
+    implementation "androidx.appcompat:appcompat:$appCompatAndroidX"
+    implementation "com.android.support:appcompat-v7:$appCompatVersion"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintVersion"
+
+    // Internal Library
+    implementation project(path: ':libraries:network')
+    implementation project(path: ':libraries:commons')
+    implementation project(path: ':libraries:actions')
+    implementation project(path: ':features:customerList')
+    implementation project(path: ':features:customerDetail')
+
+    // Testes
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$runnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+}
